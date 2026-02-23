@@ -1,0 +1,120 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(rgba(36, 36, 36, 0.8), rgba(36, 36, 36, 0.2)), url('images/fondo.jpg');
+  background-size: cover;        
+  background-repeat: no-repeat;  
+  background-position: center;   
+}
+h1.texth1{
+     font-family: "Playfair Display", serif;
+     color: white;
+     font-size: 3em;
+     font-weight: 700;
+     padding-top: 1em;
+}
+
+.caj-icons {display: flex; text-align: center;   flex-wrap: wrap;}
+.text-icons{padding: 2em 2em 0em 0em ;}
+.text-icons p {font-family: "Karla", sans-serif; font-size: 1em; color: white; 
+text-decoration: none;}
+.text-icons p a {font-family: "Karla"; color: white; text-decoration: none;}
+.text-icons p a.monumento:hover{font-weight: 700;}
+.text-icons p a.hazclic {background-color: #e1ccad; padding: 3px 10px 3px 10px; border-radius: 50px;
+color: #413625; text-decoration: none; text-decoration: none;font-size: 1.2em; font-weight: 700;}
+.text-icons p a.hazclic:hover{background-color: #413625;color: #e1ccad;}
+
+.caj-tapete{display:flex; align-items: center; padding: 1em 0em 1em 0em; }
+.tapeteyoga img{width: 5em;}
+.textoyoga p{font-family: "Karla", sans-serif; font-size: 1.2em; color: white; font-weight: 600;}
+
+img.simi{width: 80%; padding-top: 1em;}
+
+.foot {
+    width: 100%;
+  justify-content: center; 
+  text-align: center;
+  font-family: "Karla";
+}
+
+.logo-foot img{
+    width: 14em;
+}
+.copy p{color: white; font-family: "Karla";}
+.copy a{color: #f89b59;}
+
+/*boton*/
+
+.getstarted_btn {
+  position: relative;
+  z-index: 1;
+  font-size: 22px;
+  font-weight: 500;
+  padding: 24px 50px;
+  color: #413625;
+  display: inline-block;
+  background-color: #e1ccad;
+  border-radius: 35px 0 35px 0;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.getstarted_btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  background: #ffffff;
+  transition: all 0.4s cubic-bezier(0.12, 0, 0.38, 1);
+  z-index: -1;
+}
+
+.getstarted_btn:hover {
+  color: #552f6f;
+  transform: translateY(-10px);
+}
+
+.getstarted_btn:hover::before {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+
+.meditarsimi{ animation: float 6s ease-in-out infinite;}
+
+.modal-content{
+  background-color: #e1ccad !important;
+  border-radius:  10px;
+}
+@keyframes float {
+	0% {transform: translatex(0px);}
+	50% {transform: translatex(-20px);}
+	100% {transform: translatex(0px);}
+}
+
+@media (max-width: 768px) {
+    h1.texth1{
+     font-size: 3em;
+     text-align: center;
+    }
+    .caj-icons{justify-content: center;}
+    .text-icons{padding: 2em 1em 0em 1em ;}
+    .caj-tapete{text-align: center; justify-content: center;}
+    .btn_wrapper{text-align: center;}
+    img.simi{width: 85%; padding-top: 0em;}
+
+
+}
+@media (max-width: 390px){
+    .caj-icons{justify-content: center;}
+    .text-icons{padding: 2em 0em 0em 0em; text-align: center;}
+
+}

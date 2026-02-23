@@ -1,0 +1,179 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Karla:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap');
+
+body {
+    font-family: 'Karla', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+h1.h1text{
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5em;
+    line-height: 120%;
+    font-weight: 600;
+    color: white;
+    padding-top: 1em;
+
+}
+
+p{
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+}
+
+
+/* Home Page Header Section Style */
+a.monumento{color: white;}
+.caj-tapete{display:flex; align-items: center; }
+.caj-tapete p{font-weight: 700;}
+.tapeteyoga img{width: 8em; text-align: center;}
+.textoyoga p{color: white;}
+.logo-foot img{width: 15em;}
+p a.hazclic {background-color: #e1ccad; padding: 3px 10px 3px 10px; border-radius: 50px;
+color: #413625; text-decoration: none; text-decoration: none;}
+p a.hazclic:hover{background-color: #413625;color: #e1ccad;}
+
+.caj-icons {display: flex; text-align: center;}
+.text-icons{padding: 2em 2em 0em 0em;}
+.text-icons p{color: white; font-size: 1em;}
+.text-icons a{font-size: 1em; text-decoration: none;}
+.text-icons a:hover{color: #e1ccad;}
+
+
+.banner-section-outer {
+    min-height: 100vh;  
+    min-height: 100svh;
+    background: linear-gradient(rgba(36, 36, 36, 0.8), rgba(36, 36, 36, 0.2)), 
+                url('../images/fondo.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* Home Page Banner Section Style */
+@keyframes blink {
+    100% {
+        opacity: 0;
+    }
+}
+@-webkit-keyframes blink {
+    100% {
+        opacity: 0;
+    }
+}
+@-moz-keyframes blink {
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.banner-section-outer .banner-section-content .btn_wrapper{
+    margin-bottom: 35px;
+    margin-top: 35px;
+}
+.banner-section-outer .btn_wrapper .getstarted_btn {
+    position: relative;
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 500;
+    padding: 24px 50px;
+    text-align: center;
+    color: #413625;
+    display: inline-block;
+    background-color: #e1ccad;
+    border-radius: 35px 0px 35px 0px;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+}
+.banner-section-outer .btn_wrapper .getstarted_btn:hover {
+    color: #552f6f;
+    background-color: #ffffff;
+    transform: translateY(-10px);
+}
+.banner-section-outer .btn_wrapper .getstarted_btn:hover:before {
+	left: 0%;
+	right: auto;
+	width: 100%;
+}
+.banner-section-outer .btn_wrapper .getstarted_btn:before {
+	display: block;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 100%;
+	width: 0px;
+	z-index: -1;
+	content: '';
+	color: #764979 !important;
+	background: #ffffff;
+	transition: all 0.4s cubic-bezier(0.12, 0, 0.38, 1) 0s;
+}
+
+
+
+.meditarsimi{ animation: float 6s ease-in-out infinite;}
+
+
+.footer-section {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(255, 255, 255,0), rgb(228, 111, 27, .7));/* opcional si quieres imagen */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 30px 0 0;
+    margin-top:0;
+}
+
+
+.copyright {
+    padding: 24px 0;
+}
+.copyright p{
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 26px;
+    margin: 0;
+}
+@keyframes float {
+	0% {
+		
+		transform: translatex(0px);
+	}
+	50% {
+		
+		transform: translatex(-20px);
+	}
+	100% {
+		
+		transform: translatex(0px);
+	}
+}
+
+@keyframes float_img {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+@media  (max-width: 800px){
+   h1.h1text{font-size: 2.5em; text-align: center;}
+    .tapeteyoga img{width: 5em; text-align: center;}
+    .caj-icons {display: flex; text-align: center; justify-content: center;}
+
+    .text-icons{padding: 2em 1em 0em 1em;}
+    .caj-tapete {justify-content: center; margin: 1em 0em 1em 0em;}
+    
+}
