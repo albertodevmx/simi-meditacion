@@ -168,7 +168,13 @@ body {
     .main-content .container { max-width: 1122px; }
 }
 
-.left-col {
+.title-col {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+}
+
+.content-col {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -373,7 +379,7 @@ body {
 .simi-fixed {
     position: fixed;
     bottom: 120px;
-    right: 6%;
+    left: 6%;
     z-index: 2;
     pointer-events: none;
 }
@@ -469,7 +475,7 @@ a:hover {
     }
 
     .simi-fixed {
-        right: 3%;
+        left: 3%;
     }
 
     .simi-img {
@@ -486,10 +492,15 @@ a:hover {
         min-height: auto;
     }
 
-    .left-col {
+    .content-col {
         align-items: center;
         text-align: center;
         gap: 1.2rem;
+        padding-bottom: 0.8rem;
+    }
+
+    .site-footer {
+        padding: 0rem 1rem 0.6rem;
     }
 
     .titulo {
@@ -517,7 +528,7 @@ a:hover {
     .simi-fixed {
         position: relative;
         bottom: auto;
-        right: auto;
+        left: auto;
         text-align: center;
         pointer-events: auto;
     }
