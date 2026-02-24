@@ -122,6 +122,25 @@ body {
 }
 
 /* ===========================
+   Fondo Flores – Bottom decorative layer
+   =========================== */
+.fondo-flores {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+    line-height: 0;
+}
+
+.fondo-flores img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ===========================
    Main Content Layout
    =========================== */
 .main-content {
@@ -471,6 +490,10 @@ a:hover {
 
     .footer-logo {
         width: 10rem;
+    }
+
+    .fondo-flores {
+        position: relative;
     }
 }
 
