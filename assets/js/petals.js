@@ -7,8 +7,7 @@
     var petals = [];
     var W, H;
 
-    // 50% less volume
-    var PETAL_COUNT = window.innerWidth < 768 ? 10 : 19;
+    var PETAL_COUNT = window.innerWidth < 768 ? 20 : 38;
 
     // Warm yellow palette matching the dandelion flowers in the background
     var colors = [
@@ -29,7 +28,7 @@
 
     window.addEventListener('resize', function () {
         resize();
-        PETAL_COUNT = window.innerWidth < 768 ? 10 : 19;
+        PETAL_COUNT = window.innerWidth < 768 ? 20 : 38;
     });
     resize();
 
