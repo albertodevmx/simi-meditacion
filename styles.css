@@ -167,6 +167,7 @@ body {
 @media (min-width: 992px) {
     .titulo {
         text-align: left;
+        padding-top: 100px;
     }
 }
 
