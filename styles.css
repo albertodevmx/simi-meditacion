@@ -463,6 +463,11 @@ a:hover {
         font-size: 2.6rem;
     }
 
+    /* Prevent cloud animation from stretching vertically on portrait screens */
+    .nubes-overlay::before {
+        background-size: 50% auto;
+    }
+
     .simi-fixed {
         right: 3%;
     }
