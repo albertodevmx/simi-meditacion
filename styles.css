@@ -6,11 +6,55 @@
 }
 
 body {
-  background: linear-gradient(rgba(36, 36, 36, 0.8), rgba(36, 36, 36, 0.2)), url('images/fondo.jpg');
-  background-size: cover;        
-  background-repeat: no-repeat;  
-  background-position: center;   
+  background: url('assets/images/fondo-nubes.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
+
+/* Capa de nubes animadas */
+.nubes-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.nubes-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-image: url('assets/images/nubes-blancas.png');
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  background-position: 0 0;
+  animation: moverNubes 120s linear infinite;
+}
+
+@keyframes moverNubes {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.info {
+  position: relative;
+  z-index: 1;
+}
+
 h1.texth1{
      font-family: "Playfair Display", serif;
      color: white;
@@ -37,9 +81,11 @@ img.simi{width: 80%; padding-top: 1em;}
 
 .foot {
     width: 100%;
-  justify-content: center; 
+  justify-content: center;
   text-align: center;
   font-family: "Karla";
+  position: relative;
+  z-index: 1;
 }
 
 .logo-foot img{
