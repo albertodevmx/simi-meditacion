@@ -169,6 +169,11 @@ body {
         text-align: left;
         padding-top: 100px;
     }
+
+    .simi-img {
+        max-height: 370px;
+        width: auto;
+    }
 }
 
 .title-col {
