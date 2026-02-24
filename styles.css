@@ -392,7 +392,7 @@ body {
 .site-footer {
     position: relative;
     z-index: 3;
-    padding: 1.5rem 1rem 2rem;
+    padding: 1.5rem 1rem 0.6rem;
     text-align: center;
 }
 
@@ -400,7 +400,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+}
+
+.footer-copy-wrap {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 0 1rem 2rem;
 }
 
 .footer-logo {
@@ -534,6 +540,10 @@ a:hover {
         position: relative;
         left: 50%;
         transform: translateX(-50%);
+    }
+
+    .footer-copy-wrap {
+        padding: 1rem 1rem 30px;
     }
 }
 
