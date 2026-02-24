@@ -66,11 +66,6 @@ body {
     animation: fadeInSoft 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.site-footer {
-    animation: fadeInOnly 0.35s ease 0.15s forwards;
-    opacity: 0;
-}
-
 .simi-fixed {
     animation: fadeInOnly 0.4s ease 0.1s forwards;
     opacity: 0;
@@ -168,6 +163,13 @@ body {
     .main-content .container { max-width: 1122px; }
 }
 
+/* Desktop-only overrides */
+@media (min-width: 992px) {
+    .titulo {
+        text-align: left;
+    }
+}
+
 .title-col {
     display: flex;
     flex-direction: column;
@@ -203,6 +205,7 @@ body {
     flex-wrap: wrap;
     gap: 1.8rem;
     align-items: flex-start;
+    justify-content: center;
 }
 
 .info-item {
@@ -263,6 +266,7 @@ body {
 .tapete-section {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.8rem;
 }
 
@@ -385,34 +389,19 @@ body {
 }
 
 .simi-img {
-    width: 22vw;
-    max-width: 380px;
-    min-width: 200px;
+    width: 27.5vw;
+    max-width: 475px;
+    min-width: 250px;
     height: auto;
     pointer-events: auto;
 }
 
 /* ===========================
-   Footer
+   Footer Block (inside content-col)
    =========================== */
-.site-footer {
-    position: relative;
-    z-index: 3;
-    padding: 1.5rem 1rem 0.6rem;
+.footer-block {
     text-align: center;
-}
-
-.footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.footer-copy-wrap {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    padding: 0 1rem 2rem;
+    padding-top: 0.5rem;
 }
 
 .footer-logo {
@@ -421,7 +410,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.footer-inner a:hover .footer-logo {
+.footer-block a:hover .footer-logo {
     transform: scale(1.06);
 }
 
@@ -475,11 +464,17 @@ a:hover {
     }
 
     .simi-fixed {
-        left: 3%;
+        position: relative;
+        bottom: auto;
+        left: auto;
+        text-align: center;
+        pointer-events: auto;
     }
 
     .simi-img {
-        width: 25vw;
+        width: 52vw;
+        min-width: 184px;
+        max-width: 253px;
     }
 }
 
@@ -499,21 +494,12 @@ a:hover {
         padding-bottom: 0.8rem;
     }
 
-    .site-footer {
-        padding: 0rem 1rem 0.6rem;
-    }
-
     .titulo {
         font-size: 3.15rem;
     }
 
     .info-icons {
-        justify-content: center;
         gap: 1.5rem;
-    }
-
-    .tapete-section {
-        justify-content: center;
     }
 
     .form-card {
@@ -553,10 +539,6 @@ a:hover {
 
     .footer-logo {
         width: 10rem;
-    }
-
-    .footer-copy-wrap {
-        padding: 0.5rem 1rem 30px;
     }
 }
 
