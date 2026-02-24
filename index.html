@@ -13,7 +13,6 @@
     <link rel="shortcut icon" href="images/ico.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <title>Ceremonia de Inicio de Año</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,11 +38,14 @@
 
     <div class="nubes-overlay"></div>
 
+    <!-- Simi fixed to viewport bottom -->
+    <div class="simi-fixed">
+        <img class="simi-img" src="images/SimiMeditando2.png" alt="Simi meditando">
+    </div>
+
     <main class="main-content">
         <div class="container">
-            <div class="row animate__animated animate__fadeInUp" style="--animate-duration: 0.8s;">
-
-                <!-- Left Column: Info + Form -->
+            <div class="row">
                 <div class="col-lg-6 col-md-7 left-col">
                     <h1 class="titulo">Ceremonia de <br>Inicio de Año</h1>
 
@@ -93,19 +95,11 @@
                         </form>
                     </div>
                 </div>
-
-                <!-- Right Column: Simi Image -->
-                <div class="col-lg-6 col-md-5 right-col">
-                    <div class="simi-wrapper">
-                        <img class="simi-img" src="images/SimiMeditando2.png" alt="Simi meditando">
-                    </div>
-                </div>
-
             </div>
         </div>
     </main>
 
-    <footer class="site-footer animate__animated animate__fadeIn" style="--animate-duration: 0.6s;">
+    <footer class="site-footer">
         <div class="footer-inner">
             <a href="https://www.fundaciondrsimi.org.mx" target="_blank">
                 <img class="footer-logo" src="images/logoFDS.png" alt="Logo Fundación del Dr. Simi">
@@ -122,10 +116,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Preloader: hide when all assets are loaded
+        // Preloader: hide once assets are ready
         window.addEventListener('load', function () {
-            var preloader = document.getElementById('preloader');
-            preloader.classList.add('loaded');
+            document.getElementById('preloader').classList.add('loaded');
         });
 
         // Form validation
@@ -136,9 +129,8 @@
             const nombreError = document.getElementById('nombreError');
             const correoError = document.getElementById('correoError');
 
-            // Allow letters (including accents/ñ), spaces, hyphens, apostrophes
-            const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s'\-]+$/;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s'\-]+$/;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             function clearError(input, errorEl) {
                 input.classList.remove('input-error');
@@ -159,9 +151,9 @@
             });
 
             form.addEventListener('submit', function (e) {
-                let valid = true;
-                const nombre = nombreInput.value.trim();
-                const correo = correoInput.value.trim();
+                var valid = true;
+                var nombre = nombreInput.value.trim();
+                var correo = correoInput.value.trim();
 
                 clearError(nombreInput, nombreError);
                 clearError(correoInput, correoError);
