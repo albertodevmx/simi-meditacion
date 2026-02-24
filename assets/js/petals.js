@@ -40,13 +40,18 @@
        ------------------------------------------------------- */
     function createPetal(fromRight) {
         var size = 7 + Math.random() * 11;            // 7 – 18 px width
-        var baseWind = 0.3 + Math.random() * 2.7;    // 0.3 – 3.0
+        var baseWind = 0.15 + Math.random() * 1.35;   // 0.15 – 1.5 (slower)
+
+        // Spawn in the lower half of the screen (45% – 90% height)
+        var spawnY = fromRight
+            ? H * 0.45 + Math.random() * H * 0.45
+            : H * 0.4  + Math.random() * H * 0.5;
 
         return {
             x: fromRight
                 ? W + 20 + Math.random() * 120
                 : Math.random() * W,
-            y: Math.random() * H * 0.7,               // top 70 %
+            y: spawnY,
 
             size: size,
             aspect: 0.2 + Math.random() * 0.15,       // height ratio (thin)
@@ -54,21 +59,21 @@
             /* ---------- Wind ---------- */
             baseWind: baseWind,
             gustPhase: Math.random() * Math.PI * 2,
-            gustFreq: 0.004 + Math.random() * 0.008,
-            gustAmp: 0.3 + Math.random() * 0.9,
+            gustFreq: 0.003 + Math.random() * 0.005,
+            gustAmp: 0.15 + Math.random() * 0.5,
 
             /* ---------- Velocities (smoothed each frame) ---------- */
-            vx: fromRight ? -baseWind * 0.5 : -baseWind * Math.random(),
+            vx: fromRight ? -baseWind * 0.4 : -baseWind * Math.random() * 0.5,
             vy: 0,
 
             /* ---------- Rotation ---------- */
             rot: Math.random() * Math.PI * 2,
-            rotSpeed: (Math.random() - 0.5) * 0.06,
+            rotSpeed: (Math.random() - 0.5) * 0.03,
 
             /* ---------- Flutter / wobble ---------- */
             wobPhase: Math.random() * Math.PI * 2,
-            wobFreq: 0.018 + Math.random() * 0.028,
-            wobAmp: 0.4 + Math.random() * 1.4,
+            wobFreq: 0.012 + Math.random() * 0.018,
+            wobAmp: 0.3 + Math.random() * 0.9,
 
             /* ---------- Visual ---------- */
             color: colors[Math.floor(Math.random() * colors.length)],
@@ -118,28 +123,28 @@
 
         // ---- Core relationship ----
         // Gravity inversely proportional to wind strength
-        //   wind = 3.0 → gravity ≈ 0.07  (almost no fall, strong push)
-        //   wind = 0.3 → gravity ≈ 0.70  (drifts down more)
-        var gravity = 0.2 / wind;
+        //   wind = 1.5 → gravity ≈ 0.08  (almost no fall, strong push)
+        //   wind = 0.15 → gravity ≈ 0.80  (drifts down more)
+        var gravity = 0.12 / wind;
 
         // Flutter: vertical oscillation
         var flutter = Math.sin(p.t * p.wobFreq + p.wobPhase) * p.wobAmp;
 
         // Buoyancy: gentle upward push that grows as petal nears the
-        // lower third – prevents petals from ever reaching the ground.
-        var threshold = H * 0.62;
+        // bottom – prevents petals from ever reaching the ground.
+        var threshold = H * 0.78;
         var buoyancy = 0;
         if (p.y > threshold) {
-            buoyancy = -((p.y - threshold) / (H - threshold)) * 0.45;
+            buoyancy = -((p.y - threshold) / (H - threshold)) * 0.4;
         }
 
         // Target velocities
         var tvx = -wind;
-        var tvy = gravity + flutter * 0.07 + buoyancy;
+        var tvy = gravity + flutter * 0.05 + buoyancy;
 
-        // Smooth interpolation (lerp) for natural acceleration
-        p.vx += (tvx - p.vx) * 0.025;
-        p.vy += (tvy - p.vy) * 0.035;
+        // Smooth interpolation (lerp) – lower = more gradual
+        p.vx += (tvx - p.vx) * 0.015;
+        p.vy += (tvy - p.vy) * 0.02;
 
         // Apply
         p.x += p.vx;
@@ -151,17 +156,17 @@
         // ---- Recycle off-screen petals ----
         if (p.x < -60) {
             p.x = W + 20 + Math.random() * 80;
-            p.y = Math.random() * H * 0.55;
+            p.y = H * 0.45 + Math.random() * H * 0.4;
             p.t = 0;
         }
         if (p.y > H + 40) {
             p.x = W + 20 + Math.random() * 80;
-            p.y = Math.random() * H * 0.3;
+            p.y = H * 0.4 + Math.random() * H * 0.25;
             p.t = 0;
         }
-        // If petal drifts too high (unlikely but safeguard)
-        if (p.y < -60) {
-            p.y = 0;
+        // If petal drifts above 30% of screen, nudge it back down gently
+        if (p.y < H * 0.3) {
+            p.vy += 0.02;
         }
     }
 
