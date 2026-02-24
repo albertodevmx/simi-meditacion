@@ -170,13 +170,6 @@ body {
         padding-top: 100px;
     }
 
-    .simi-img {
-        height: 350px;
-        width: auto;
-        min-width: 0;
-        max-width: none;
-    }
-
     .simi-fixed {
         left: 210px;
     }
@@ -405,6 +398,16 @@ body {
     min-width: 250px;
     height: auto;
     pointer-events: auto;
+}
+
+/* Desktop: fixed size, not responsive */
+@media (min-width: 992px) {
+    .simi-img {
+        height: 350px;
+        width: auto;
+        min-width: 0;
+        max-width: none;
+    }
 }
 
 /* ===========================
