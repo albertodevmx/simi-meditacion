@@ -527,21 +527,7 @@ a:hover {
         width: 10rem;
     }
 
-    .fondo-flores {
-        position: relative;
-        overflow: hidden;
-        height: 35vh;
-    }
-
-    .fondo-flores img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center top;
-    }
-
     .footer-copy-wrap {
-        margin-top: -3rem;
         padding: 0.5rem 1rem 30px;
     }
 }
