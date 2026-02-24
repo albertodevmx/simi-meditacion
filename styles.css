@@ -173,6 +173,7 @@ body {
     .simi-img {
         height: 350px;
         width: auto;
+        min-width: 0;
         max-width: none;
     }
 
