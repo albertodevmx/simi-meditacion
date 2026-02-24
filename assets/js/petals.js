@@ -7,8 +7,8 @@
     var petals = [];
     var W, H;
 
-    // Fewer petals on mobile for performance
-    var PETAL_COUNT = window.innerWidth < 768 ? 20 : 38;
+    // 50% less volume
+    var PETAL_COUNT = window.innerWidth < 768 ? 10 : 19;
 
     // Warm yellow palette matching the dandelion flowers in the background
     var colors = [
@@ -29,7 +29,7 @@
 
     window.addEventListener('resize', function () {
         resize();
-        PETAL_COUNT = window.innerWidth < 768 ? 20 : 38;
+        PETAL_COUNT = window.innerWidth < 768 ? 10 : 19;
     });
     resize();
 
@@ -40,12 +40,12 @@
        ------------------------------------------------------- */
     function createPetal(fromRight) {
         var size = 7 + Math.random() * 11;            // 7 – 18 px width
-        var baseWind = 0.15 + Math.random() * 1.35;   // 0.15 – 1.5 (slower)
+        var baseWind = 0.1 + Math.random() * 0.9;     // 0.1 – 1.0 (even slower)
 
-        // Spawn in the lower half of the screen (45% – 90% height)
+        // Spawn in the lower portion of the screen (60% – 100% height)
         var spawnY = fromRight
-            ? H * 0.45 + Math.random() * H * 0.45
-            : H * 0.4  + Math.random() * H * 0.5;
+            ? H * 0.6 + Math.random() * H * 0.4
+            : H * 0.6 + Math.random() * H * 0.4;
 
         return {
             x: fromRight
@@ -119,32 +119,22 @@
 
         // Current wind = base ± gust oscillation
         var gust = Math.sin(p.t * p.gustFreq + p.gustPhase) * p.gustAmp;
-        var wind = Math.max(0.15, p.baseWind + gust);
+        var wind = Math.max(0.08, p.baseWind + gust);
 
         // ---- Core relationship ----
         // Gravity inversely proportional to wind strength
-        //   wind = 1.5 → gravity ≈ 0.08  (almost no fall, strong push)
-        //   wind = 0.15 → gravity ≈ 0.80  (drifts down more)
-        var gravity = 0.12 / wind;
+        var gravity = 0.08 / wind;
 
         // Flutter: vertical oscillation
         var flutter = Math.sin(p.t * p.wobFreq + p.wobPhase) * p.wobAmp;
 
-        // Buoyancy: gentle upward push that grows as petal nears the
-        // bottom – prevents petals from ever reaching the ground.
-        var threshold = H * 0.78;
-        var buoyancy = 0;
-        if (p.y > threshold) {
-            buoyancy = -((p.y - threshold) / (H - threshold)) * 0.4;
-        }
-
         // Target velocities
         var tvx = -wind;
-        var tvy = gravity + flutter * 0.05 + buoyancy;
+        var tvy = gravity + flutter * 0.04;
 
         // Smooth interpolation (lerp) – lower = more gradual
-        p.vx += (tvx - p.vx) * 0.015;
-        p.vy += (tvy - p.vy) * 0.02;
+        p.vx += (tvx - p.vx) * 0.012;
+        p.vy += (tvy - p.vy) * 0.015;
 
         // Apply
         p.x += p.vx;
@@ -156,17 +146,13 @@
         // ---- Recycle off-screen petals ----
         if (p.x < -60) {
             p.x = W + 20 + Math.random() * 80;
-            p.y = H * 0.45 + Math.random() * H * 0.4;
+            p.y = H * 0.6 + Math.random() * H * 0.4;
             p.t = 0;
         }
-        if (p.y > H + 40) {
+        if (p.y > H + 40 || p.y < -60) {
             p.x = W + 20 + Math.random() * 80;
-            p.y = H * 0.4 + Math.random() * H * 0.25;
+            p.y = H * 0.6 + Math.random() * H * 0.3;
             p.t = 0;
-        }
-        // If petal drifts above 30% of screen, nudge it back down gently
-        if (p.y < H * 0.3) {
-            p.vy += 0.02;
         }
     }
 
