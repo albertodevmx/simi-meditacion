@@ -382,7 +382,7 @@ body {
    =========================== */
 .simi-fixed {
     position: fixed;
-    bottom: 120px;
+    bottom: 50px;
     left: 6%;
     z-index: 2;
     pointer-events: none;
@@ -412,6 +412,13 @@ body {
 
 .footer-block a:hover .footer-logo {
     transform: scale(1.06);
+}
+
+.footer-copy-wrap {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 0.5rem 1rem 30px;
 }
 
 .footer-copy {
@@ -454,6 +461,11 @@ a:hover {
         padding: 2rem 0 2rem;
     }
 
+    .content-col {
+        align-items: center;
+        text-align: center;
+    }
+
     .titulo {
         font-size: 2.6rem;
     }
@@ -488,8 +500,6 @@ a:hover {
     }
 
     .content-col {
-        align-items: center;
-        text-align: center;
         gap: 1.2rem;
         padding-bottom: 0.8rem;
     }
@@ -509,20 +519,6 @@ a:hover {
 
     .btn-enviar {
         align-self: center;
-    }
-
-    .simi-fixed {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        text-align: center;
-        pointer-events: auto;
-    }
-
-    .simi-img {
-        width: 52vw;
-        min-width: 184px;
-        max-width: 253px;
     }
 
     .fondo-flores {
