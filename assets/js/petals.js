@@ -42,10 +42,10 @@
         var size = 7 + Math.random() * 11;            // 7 – 18 px width
         var baseWind = 0.1 + Math.random() * 0.9;     // 0.1 – 1.0 (even slower)
 
-        // Spawn in the lower portion of the screen (60% – 100% height)
+        // Spawn in the lower 70% of the screen (30% – 100% height)
         var spawnY = fromRight
-            ? H * 0.6 + Math.random() * H * 0.4
-            : H * 0.6 + Math.random() * H * 0.4;
+            ? H * 0.3 + Math.random() * H * 0.7
+            : H * 0.3 + Math.random() * H * 0.7;
 
         return {
             x: fromRight
@@ -123,7 +123,7 @@
 
         // ---- Core relationship ----
         // Gravity inversely proportional to wind strength
-        var gravity = 0.08 / wind;
+        var gravity = 0.0912 / wind;  // +14%
 
         // Flutter: vertical oscillation
         var flutter = Math.sin(p.t * p.wobFreq + p.wobPhase) * p.wobAmp;
@@ -146,12 +146,12 @@
         // ---- Recycle off-screen petals ----
         if (p.x < -60) {
             p.x = W + 20 + Math.random() * 80;
-            p.y = H * 0.6 + Math.random() * H * 0.4;
+            p.y = H * 0.3 + Math.random() * H * 0.7;
             p.t = 0;
         }
         if (p.y > H + 40 || p.y < -60) {
             p.x = W + 20 + Math.random() * 80;
-            p.y = H * 0.6 + Math.random() * H * 0.3;
+            p.y = H * 0.3 + Math.random() * H * 0.5;
             p.t = 0;
         }
     }
