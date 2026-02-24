@@ -169,13 +169,26 @@ body {
 }
 
 /* ===========================
+   Form Card
+   =========================== */
+.form-card {
+    background: rgba(225, 204, 173, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 1.6rem 1.8rem;
+    max-width: 420px;
+}
+
+/* ===========================
    Signup Form
    =========================== */
 .signup-form {
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
-    max-width: 400px;
+    width: 100%;
 }
 
 .signup-form .form-group {
@@ -225,30 +238,41 @@ body {
     transform: scale(1.08);
 }
 
+/* Validation errors */
+.error-msg {
+    display: block;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: #ffcccb;
+    margin-top: 0.25rem;
+    padding-left: 1rem;
+    min-height: 0;
+}
+
+.signup-form input.input-error {
+    box-shadow: 0 0 0 3px rgba(255, 100, 100, 0.5);
+}
+
 /* ===========================
    Simi Illustration
    =========================== */
 .right-col {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
+    align-self: flex-end;
 }
 
 .simi-wrapper {
-    animation: float 6s ease-in-out infinite;
     text-align: center;
+    margin-bottom: 100px;
 }
 
 .simi-img {
     width: 85%;
     max-width: 480px;
     height: auto;
-}
-
-@keyframes float {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(-15px); }
-    100% { transform: translateX(0); }
 }
 
 /* ===========================
@@ -323,6 +347,10 @@ a:hover {
         font-size: 2.6rem;
     }
 
+    .simi-wrapper {
+        margin-bottom: 80px;
+    }
+
     .simi-img {
         width: 75%;
     }
@@ -343,7 +371,7 @@ a:hover {
     }
 
     .titulo {
-        font-size: 2.4rem;
+        font-size: 3.15rem;
         text-align: center;
     }
 
@@ -356,10 +384,9 @@ a:hover {
         justify-content: center;
     }
 
-    .signup-form {
-        width: 100%;
+    .form-card {
         max-width: 340px;
-        align-items: center;
+        align-self: center;
     }
 
     .btn-enviar {
@@ -368,10 +395,15 @@ a:hover {
 
     .right-col {
         margin-top: 1.5rem;
+        align-self: auto;
+    }
+
+    .simi-wrapper {
+        margin-bottom: 60px;
     }
 
     .simi-img {
-        width: 70%;
+        width: 49%;
     }
 
     .footer-logo {
@@ -384,7 +416,7 @@ a:hover {
    =========================== */
 @media (max-width: 400px) {
     .titulo {
-        font-size: 2rem;
+        font-size: 2.7rem;
     }
 
     .info-icons {
@@ -393,6 +425,10 @@ a:hover {
 
     .info-item img {
         width: 2rem;
+    }
+
+    .form-card {
+        padding: 1.2rem 1.3rem;
     }
 
     .signup-form input {
@@ -406,6 +442,6 @@ a:hover {
     }
 
     .simi-img {
-        width: 80%;
+        width: 56%;
     }
 }

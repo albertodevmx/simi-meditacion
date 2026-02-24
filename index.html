@@ -65,15 +65,20 @@
                     </div>
 
                     <!-- Signup Form -->
-                    <form class="signup-form" action="#" method="POST">
-                        <div class="form-group">
-                            <input type="text" name="nombre" placeholder="Nombre" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="correo" placeholder="Correo electrónico" required>
-                        </div>
-                        <button type="submit" class="btn-enviar">Enviar</button>
-                    </form>
+                    <div class="form-card">
+                        <form class="signup-form" id="signupForm" action="#" method="POST" novalidate>
+                            <div class="form-group">
+                                <input type="text" id="nombre" name="nombre" placeholder="Nombre"
+                                    minlength="3" maxlength="100" required>
+                                <span class="error-msg" id="nombreError"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
+                                <span class="error-msg" id="correoError"></span>
+                            </div>
+                            <button type="submit" class="btn-enviar">Enviar</button>
+                        </form>
+                    </div>
                 </div>
 
                 <!-- Right Column: Simi Image -->
@@ -103,6 +108,72 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            const form = document.getElementById('signupForm');
+            const nombreInput = document.getElementById('nombre');
+            const correoInput = document.getElementById('correo');
+            const nombreError = document.getElementById('nombreError');
+            const correoError = document.getElementById('correoError');
+
+            // Allow letters (including accents/ñ), spaces, hyphens, apostrophes
+            const nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s'\-]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            function clearError(input, errorEl) {
+                input.classList.remove('input-error');
+                errorEl.textContent = '';
+            }
+
+            function showError(input, errorEl, msg) {
+                input.classList.add('input-error');
+                errorEl.textContent = msg;
+            }
+
+            nombreInput.addEventListener('input', function () {
+                clearError(nombreInput, nombreError);
+            });
+
+            correoInput.addEventListener('input', function () {
+                clearError(correoInput, correoError);
+            });
+
+            form.addEventListener('submit', function (e) {
+                let valid = true;
+                const nombre = nombreInput.value.trim();
+                const correo = correoInput.value.trim();
+
+                clearError(nombreInput, nombreError);
+                clearError(correoInput, correoError);
+
+                if (!nombre) {
+                    showError(nombreInput, nombreError, 'El nombre es obligatorio.');
+                    valid = false;
+                } else if (nombre.length < 3) {
+                    showError(nombreInput, nombreError, 'Mínimo 3 caracteres.');
+                    valid = false;
+                } else if (nombre.length > 100) {
+                    showError(nombreInput, nombreError, 'Máximo 100 caracteres.');
+                    valid = false;
+                } else if (!nombreRegex.test(nombre)) {
+                    showError(nombreInput, nombreError, 'Solo letras, espacios y acentos.');
+                    valid = false;
+                }
+
+                if (!correo) {
+                    showError(correoInput, correoError, 'El correo es obligatorio.');
+                    valid = false;
+                } else if (!emailRegex.test(correo)) {
+                    showError(correoInput, correoError, 'Ingresa un correo válido.');
+                    valid = false;
+                }
+
+                if (!valid) {
+                    e.preventDefault();
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>
