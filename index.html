@@ -1,144 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" href="images/ico.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <title>Ceremonia de Inicio de año</title>
+    <title>Ceremonia de Inicio de Año</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Young+Serif&display=swap');
+    </style>
+    <link href="styles.css" rel="stylesheet" type="text/css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R70GQ9XXWG"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-R70GQ9XXWG');
     </script>
 </head>
 
 <body>
     <div class="nubes-overlay"></div>
-    <section class="info">
+
+    <main class="main-content">
         <div class="container">
-            <div class="row animate__animated animate__fadeInUp animate__slow">
-                <div class="col-md-6">
-                    <h1 class="texth1">Ceremonia de <br> Inicio de Año</h1>
+            <div class="row align-items-center animate__animated animate__fadeInUp animate__slow">
 
-                    <div class="caj-icons">
+                <!-- Left Column: Info + Form -->
+                <div class="col-lg-6 col-md-7 left-col">
+                    <h1 class="titulo">Ceremonia de <br>Inicio de Año</h1>
 
-                        <div class="text-icons">
-                            <img class="" src="images/calendarIcon.png" alt="location"><br>
-                            <p> 28 de <br> Enero 2026</p>
+                    <div class="info-icons">
+                        <div class="info-item">
+                            <img src="images/calendarIcon.png" alt="Fecha">
+                            <p>28 de <br>Enero 2026</p>
                         </div>
 
-                        <div class="text-icons">
-                            <img class="" src="images/clock_icon.png" alt="location"><br>
-                            <p> 5:30 PM</p>
-
-
+                        <div class="info-item">
+                            <img src="images/clock_icon.png" alt="Hora">
+                            <p>5:30 PM</p>
                         </div>
 
-
-                        <div class="text-icons">
-                            <img class="" src="images/locationIcon.png" alt="location">
-                            <br>
+                        <div class="info-item">
+                            <img src="images/locationIcon.png" alt="Ubicación">
                             <p>
-                                <a class="monumento"
-                                    href="https://maps.google.com/?q=19.432613157967605, -99.16041814399814" 
-                                    target="_blank">Monumento <br> a la Madre, CDMX</a><br>
-                                <a class="hazclic"
-                                    href="https://maps.google.com/?q=19.432613157967605, -99.16041814399814" 
-                                    target="_blank">Haz clic</a>
+                                <a class="lugar-link"
+                                    href="https://maps.google.com/?q=19.432613157967605,-99.16041814399814"
+                                    target="_blank">Monumento <br>a la Madre, CDMX</a>
                             </p>
-                        </div>
-
-                    </div>
-
-                    <div class="">
-                        <div class="caj-tapete">
-                            <div class="tapeteyoga"><img src="images/tapete_yoga2.png" alt="tapetes"></div>
-                            <div class="textoyoga">
-                                <p>Trae tu tapete de yoga</p>
-                            </div>
+                            <a class="btn-hazclic"
+                                href="https://maps.google.com/?q=19.432613157967605,-99.16041814399814"
+                                target="_blank">Haz clic</a>
                         </div>
                     </div>
 
-                    <div class="btn_wrapper" data-aos="fade-up">
-                        <a class="getstarted_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            <b>CUPO LLENO</b>
-                        </a>
+                    <div class="tapete-section">
+                        <img src="images/tapete_yoga2.png" alt="Tapete de yoga">
+                        <p>Trae tu tapete de yoga</p>
                     </div>
 
+                    <!-- Signup Form -->
+                    <form class="signup-form" action="#" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="nombre" placeholder="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="correo" placeholder="Correo electrónico" required>
+                        </div>
+                        <button type="submit" class="btn-enviar">Enviar</button>
+                    </form>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="meditarsimi">
-
-                        <img class="simi" src="images/SimiMeditando2.png" alt="Simi meditando">
-
+                <!-- Right Column: Simi Image -->
+                <div class="col-lg-6 col-md-5 right-col">
+                    <div class="simi-wrapper">
+                        <img class="simi-img" src="images/SimiMeditando2.png" alt="Simi meditando">
                     </div>
                 </div>
-
 
             </div>
         </div>
+    </main>
 
-    </section>
-
-    <section class="foot row animate__animated animate__fadeInUp animate__slow">
-        <div class="logo-foot">
-            <img src="images/logoFDS.png" alt="logo fundacion">
-        </div>
-        <div class="copy">
-            <p>© Copyright 2026 Fundación del Dr. Simi, A.C.
+    <footer class="site-footer animate__animated animate__fadeInUp animate__slow">
+        <div class="footer-inner">
+            <a href="https://www.fundaciondrsimi.org.mx" target="_blank">
+                <img class="footer-logo" src="images/logoFDS.png" alt="Logo Fundación del Dr. Simi">
+            </a>
+            <p class="footer-copy">
+                &copy; Copyright 2026 Fundación del Dr. Simi, A.C.
                 <br>
                 <a href="https://www.fundaciondrsimi.org.mx/aviso-de-privacidad" target="_blank">
                     Aviso de privacidad
                 </a>
             </p>
         </div>
-    </section>
+    </footer>
 
-    <!-- Modal -->
-    
-<div class="modal fade" id="staticBackdrop"
-     data-bs-backdrop="static"
-     data-bs-keyboard="false"
-     tabindex="-1"
-     aria-labelledby="staticBackdropLabel"
-     aria-hidden="true">
-
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-   
-       
-       
-         <div class="modal-body">
-             <button type="button" class="btn-close float-end p-2" data-bs-dismiss="modal"></button>
-       <img class="img-fluid" src="images/avisoCupo.jpg" alt="">
-      </div>
-
-
-        
-     
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/modalAuto.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
