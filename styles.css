@@ -151,6 +151,23 @@ body {
     min-height: 100vh;
 }
 
+/* Container 15% más angosto que el default de Bootstrap */
+@media (min-width: 576px) {
+    .main-content .container { max-width: 459px; }
+}
+@media (min-width: 768px) {
+    .main-content .container { max-width: 612px; }
+}
+@media (min-width: 992px) {
+    .main-content .container { max-width: 816px; }
+}
+@media (min-width: 1200px) {
+    .main-content .container { max-width: 969px; }
+}
+@media (min-width: 1400px) {
+    .main-content .container { max-width: 1122px; }
+}
+
 .left-col {
     display: flex;
     flex-direction: column;
@@ -267,6 +284,14 @@ body {
     border-radius: 20px;
     padding: 1.6rem 1.8rem;
     max-width: 420px;
+}
+
+.form-title {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #ffffff;
+    margin: 0 0 0.6rem;
 }
 
 /* ===========================
@@ -487,9 +512,9 @@ a:hover {
     }
 
     .simi-img {
-        width: 45vw;
-        min-width: 160px;
-        max-width: 220px;
+        width: 52vw;
+        min-width: 184px;
+        max-width: 253px;
     }
 
     .footer-logo {
@@ -543,8 +568,8 @@ a:hover {
     }
 
     .simi-img {
-        width: 40vw;
-        min-width: 140px;
-        max-width: 180px;
+        width: 46vw;
+        min-width: 161px;
+        max-width: 207px;
     }
 }
