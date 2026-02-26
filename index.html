@@ -79,7 +79,7 @@
                     </div>
 
                     <!-- Signup Form -->
-                    <div class="form-card">
+                    <div class="form-card" id="formCard">
                         <p class="form-title">Regístrate para apartar tu lugar</p>
                         <form class="signup-form" id="signupForm" action="#" method="POST" novalidate>
                             <div class="form-group">
@@ -92,9 +92,12 @@
                                     required>
                                 <span class="error-msg" id="correoError"></span>
                             </div>
-                            <button type="submit" class="btn-enviar">Enviar</button>
+                            <button type="submit" class="btn-enviar" id="btnEnviar">Enviar</button>
                         </form>
                     </div>
+
+                    <!-- Confirmation shown after successful registration -->
+                    <div id="confirmationCard" style="display:none;"></div>
 
                     <footer class="footer-block">
                         <a href="https://www.fundaciondrsimi.org.mx" target="_blank">
@@ -143,13 +146,18 @@
             document.getElementById('preloader').classList.add('loaded');
         });
 
-        // Form validation
+        // Form validation & submission
         (function () {
-            const form = document.getElementById('signupForm');
-            const nombreInput = document.getElementById('nombre');
-            const correoInput = document.getElementById('correo');
-            const nombreError = document.getElementById('nombreError');
-            const correoError = document.getElementById('correoError');
+            var API_URL = 'https://reqres.in/api/register';
+
+            var form = document.getElementById('signupForm');
+            var formCard = document.getElementById('formCard');
+            var confirmationCard = document.getElementById('confirmationCard');
+            var nombreInput = document.getElementById('nombre');
+            var correoInput = document.getElementById('correo');
+            var nombreError = document.getElementById('nombreError');
+            var correoError = document.getElementById('correoError');
+            var btnEnviar = document.getElementById('btnEnviar');
 
             var nombreRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s'\-]+$/;
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -172,7 +180,40 @@
                 clearError(correoInput, correoError);
             });
 
+            function showSuccessMessage() {
+                var existing = formCard.querySelector('.success-msg');
+                if (existing) existing.remove();
+
+                var msg = document.createElement('p');
+                msg.className = 'success-msg';
+                msg.textContent = '¡Registro exitoso!';
+                formCard.appendChild(msg);
+            }
+
+            function showConfirmation() {
+                formCard.classList.add('fade-out');
+
+                formCard.addEventListener('animationend', function handler() {
+                    formCard.removeEventListener('animationend', handler);
+                    formCard.style.display = 'none';
+
+                    confirmationCard.className = 'confirmation-card';
+                    confirmationCard.style.display = '';
+                    confirmationCard.innerHTML =
+                        '<span class="confirm-icon">&#x2728;</span>' +
+                        '<p class="confirm-title">Tu folio ha sido enviado a tu correo</p>' +
+                        '<p class="confirm-body">' +
+                            'Cierra los ojos un momento y respira profundo.<br>' +
+                            'El camino hacia la <span class="confirm-highlight">paz interior</span> ' +
+                            'comienza con un solo paso.<br><br>' +
+                            'Te esperamos con los brazos abiertos.' +
+                        '</p>';
+                });
+            }
+
             form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
                 var valid = true;
                 var nombre = nombreInput.value.trim();
                 var correo = correoInput.value.trim();
@@ -202,9 +243,29 @@
                     valid = false;
                 }
 
-                if (!valid) {
-                    e.preventDefault();
-                }
+                if (!valid) return;
+
+                btnEnviar.disabled = true;
+                btnEnviar.textContent = 'Enviando...';
+
+                fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre: nombre, correo: correo })
+                })
+                .then(function (res) {
+                    if (!res.ok) throw new Error('Error en el registro');
+                    return res.json();
+                })
+                .then(function () {
+                    showSuccessMessage();
+                    setTimeout(showConfirmation, 1000);
+                })
+                .catch(function () {
+                    showError(correoInput, correoError, 'Hubo un error, intenta de nuevo.');
+                    btnEnviar.disabled = false;
+                    btnEnviar.textContent = 'Enviar';
+                });
             });
         })();
     </script>
