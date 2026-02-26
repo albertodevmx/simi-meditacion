@@ -94,7 +94,6 @@
                             </div>
                             <button type="submit" class="btn-enviar" id="btnEnviar">Enviar</button>
                         </form>
-                        <div id="formMessage" style="display:none; margin-top:12px; padding:10px 14px; border-radius:8px; font-size:14px; text-align:center; font-family:'Quicksand',sans-serif; font-weight:600;"></div>
                     </div>
 
                     <!-- Confirmation shown after successful registration -->
@@ -149,7 +148,7 @@
 
         // Form validation & submission
         (function () {
-            var API_URL = 'https://reqres.in/api/register';
+            var API_URL = 'http://localhost:5068/api/Formularios';
 
             var form = document.getElementById('signupForm');
             var formCard = document.getElementById('formCard');
@@ -181,6 +180,60 @@
                 clearError(correoInput, correoError);
             });
 
+            /* ---- Button state helpers ---- */
+            function setButtonLoading() {
+                btnEnviar.disabled = true;
+                btnEnviar.classList.add('is-loading');
+                btnEnviar.textContent = 'Enviando';
+            }
+
+            function setButtonSuccess() {
+                btnEnviar.classList.remove('is-loading');
+                btnEnviar.classList.add('is-success');
+                btnEnviar.textContent = '✓';
+            }
+
+            function resetButton() {
+                btnEnviar.disabled = false;
+                btnEnviar.classList.remove('is-loading', 'is-success');
+                btnEnviar.textContent = 'Enviar';
+            }
+
+            /* ---- Animation sequence ---- */
+            function showSuccessMessage(text) {
+                var existing = formCard.querySelector('.success-msg');
+                if (existing) existing.remove();
+
+                setButtonSuccess();
+
+                var msg = document.createElement('p');
+                msg.className = 'success-msg';
+                msg.textContent = text || '¡Registro exitoso!';
+                formCard.appendChild(msg);
+            }
+
+            function showConfirmation() {
+                formCard.classList.add('fade-out');
+
+                formCard.addEventListener('animationend', function handler() {
+                    formCard.removeEventListener('animationend', handler);
+                    formCard.style.display = 'none';
+
+                    confirmationCard.className = 'confirmation-card';
+                    confirmationCard.style.display = '';
+                    confirmationCard.innerHTML =
+                        '<span class="confirm-icon">&#x2728;</span>' +
+                        '<p class="confirm-title">Tu folio ha sido enviado a tu correo</p>' +
+                        '<p class="confirm-body">' +
+                            'Cierra los ojos un momento y respira profundo.<br>' +
+                            'El camino hacia la <span class="confirm-highlight">paz interior</span> ' +
+                            'comienza con un solo paso.<br><br>' +
+                            'Te esperamos con los brazos abiertos.' +
+                        '</p>';
+                });
+            }
+
+            /* ---- Submit handler ---- */
             form.addEventListener('submit', async function (e) {
                 e.preventDefault();
 
@@ -215,15 +268,10 @@
 
                 if (!valid) return;
 
-                // Enviar al endpoint de FormularioMarzo API
-                var btnEnviar = form.querySelector('.btn-enviar');
-                var msgDiv = document.getElementById('formMessage');
-                btnEnviar.disabled = true;
-                btnEnviar.textContent = 'Enviando...';
-                msgDiv.style.display = 'none';
+                setButtonLoading();
 
                 try {
-                    var response = await fetch('http://localhost:5068/api/Formularios', {
+                    var response = await fetch(API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -238,30 +286,17 @@
 
                     if (response.ok && data.isSuccess) {
                         form.reset();
-                        var successMsg = (data.value && data.value.mensaje) || '¡Registro exitoso!';
-                        msgDiv.textContent = successMsg;
-                        msgDiv.style.display = 'block';
-                        msgDiv.style.backgroundColor = '#d4edda';
-                        msgDiv.style.color = '#155724';
-                        msgDiv.style.border = '1px solid #c3e6cb';
+                        var successText = (data.value && data.value.mensaje) || '¡Registro exitoso!';
+                        showSuccessMessage(successText);
+                        setTimeout(showConfirmation, 1200);
                     } else {
                         var errorMsg = (data.value && data.value.mensaje) || data.error || 'Error al registrar. Intenta de nuevo.';
-                        msgDiv.textContent = errorMsg;
-                        msgDiv.style.display = 'block';
-                        msgDiv.style.backgroundColor = '#f8d7da';
-                        msgDiv.style.color = '#721c24';
-                        msgDiv.style.border = '1px solid #f5c6cb';
+                        showError(correoInput, correoError, errorMsg);
+                        resetButton();
                     }
                 } catch (err) {
-                    msgDiv.textContent = 'No se pudo conectar con el servidor. Intenta más tarde.';
-                    msgDiv.style.display = 'block';
-                    msgDiv.style.backgroundColor = '#f8d7da';
-                    msgDiv.style.color = '#721c24';
-                    msgDiv.style.border = '1px solid #f5c6cb';
-                    console.error('Error:', err);
-                } finally {
-                    btnEnviar.disabled = false;
-                    btnEnviar.textContent = 'Enviar';
+                    showError(correoInput, correoError, 'No se pudo conectar con el servidor. Intenta más tarde.');
+                    resetButton();
                 }
             });
         })();

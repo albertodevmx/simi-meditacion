@@ -381,7 +381,44 @@ body {
     box-shadow: 0 0 0 3px rgba(255, 100, 100, 0.5);
 }
 
-/* Success message shown after registration */
+/* ===========================
+   Button loading state
+   =========================== */
+.btn-enviar.is-loading {
+    pointer-events: none;
+    position: relative;
+    color: transparent;
+}
+
+.btn-enviar.is-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: -0.6rem 0 0 -0.6rem;
+    border: 2.5px solid rgba(65, 54, 37, 0.25);
+    border-top-color: #413625;
+    border-radius: 50%;
+    animation: btnSpin 0.65s linear infinite;
+}
+
+@keyframes btnSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Button success state */
+.btn-enviar.is-success {
+    pointer-events: none;
+    background-color: #8bc78b;
+    color: #fff;
+    transform: scale(1.04);
+}
+
+/* ===========================
+   Success message (appears inside form card)
+   =========================== */
 .success-msg {
     font-family: "Quicksand", sans-serif;
     font-weight: 600;
@@ -389,25 +426,42 @@ body {
     color: #c8f7c5;
     text-align: center;
     margin-top: 0.6rem;
+    opacity: 0;
+    animation: successSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-/* Form card fade-out */
+@keyframes successSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===========================
+   Form card fade-out
+   =========================== */
 .form-card.fade-out {
-    animation: formFadeOut 0.6s ease forwards;
+    animation: formFadeOut 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes formFadeOut {
     from {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1) translateY(0);
     }
     to {
         opacity: 0;
-        transform: translateY(-12px);
+        transform: scale(0.96) translateY(-14px);
     }
 }
 
-/* Success confirmation panel */
+/* ===========================
+   Confirmation card
+   =========================== */
 .confirmation-card {
     background: rgba(225, 204, 173, 0.2);
     backdrop-filter: blur(12px);
@@ -418,26 +472,48 @@ body {
     max-width: 420px;
     text-align: center;
     opacity: 0;
-    animation: confirmFadeIn 0.8s ease forwards;
+    transform: translateY(20px) scale(0.97);
+    animation: confirmFadeIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes confirmFadeIn {
     from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(20px) scale(0.97);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
+/* Sparkle icon: pop in + gentle float */
 .confirmation-card .confirm-icon {
     font-size: 2.8rem;
     margin-bottom: 0.6rem;
     display: block;
+    opacity: 0;
+    animation: iconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards,
+               iconFloat 3s ease-in-out 0.75s infinite;
 }
 
+@keyframes iconPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Staggered entrance for title and body */
 .confirmation-card .confirm-title {
     font-family: "Young Serif", serif;
     font-weight: 400;
@@ -445,6 +521,8 @@ body {
     color: #ffffff;
     margin: 0 0 1rem;
     line-height: 1.3;
+    opacity: 0;
+    animation: confirmItemIn 0.55s ease 0.35s forwards;
 }
 
 .confirmation-card .confirm-body {
@@ -454,6 +532,19 @@ body {
     color: #ffffff;
     line-height: 1.6;
     margin: 0;
+    opacity: 0;
+    animation: confirmItemIn 0.55s ease 0.55s forwards;
+}
+
+@keyframes confirmItemIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .confirmation-card .confirm-body .confirm-highlight {
