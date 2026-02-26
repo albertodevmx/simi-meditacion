@@ -44,7 +44,7 @@
             <div class="row">
                 <!-- Left: title (desktop) -->
                 <div class="col-lg-6 title-col">
-                    <h1 class="titulo">Ceremonia de Inicio de Año</h1>
+                    <h1 class="titulo">Ceremonia <br>de Inicio de Año</h1>
                 </div>
 
                 <!-- Right: info + form (desktop) -->
@@ -94,6 +94,7 @@
                             </div>
                             <button type="submit" class="btn-enviar" id="btnEnviar">Enviar</button>
                         </form>
+                        <div id="formMessage" style="display:none; margin-top:12px; padding:10px 14px; border-radius:8px; font-size:14px; text-align:center; font-family:'Quicksand',sans-serif; font-weight:600;"></div>
                     </div>
 
                     <!-- Confirmation shown after successful registration -->
@@ -180,38 +181,7 @@
                 clearError(correoInput, correoError);
             });
 
-            function showSuccessMessage() {
-                var existing = formCard.querySelector('.success-msg');
-                if (existing) existing.remove();
-
-                var msg = document.createElement('p');
-                msg.className = 'success-msg';
-                msg.textContent = '¡Registro exitoso!';
-                formCard.appendChild(msg);
-            }
-
-            function showConfirmation() {
-                formCard.classList.add('fade-out');
-
-                formCard.addEventListener('animationend', function handler() {
-                    formCard.removeEventListener('animationend', handler);
-                    formCard.style.display = 'none';
-
-                    confirmationCard.className = 'confirmation-card';
-                    confirmationCard.style.display = '';
-                    confirmationCard.innerHTML =
-                        '<span class="confirm-icon">&#x2728;</span>' +
-                        '<p class="confirm-title">Tu folio ha sido enviado a tu correo</p>' +
-                        '<p class="confirm-body">' +
-                            'Cierra los ojos un momento y respira profundo.<br>' +
-                            'El camino hacia la <span class="confirm-highlight">paz interior</span> ' +
-                            'comienza con un solo paso.<br><br>' +
-                            'Te esperamos con los brazos abiertos.' +
-                        '</p>';
-                });
-            }
-
-            form.addEventListener('submit', function (e) {
+            form.addEventListener('submit', async function (e) {
                 e.preventDefault();
 
                 var valid = true;
@@ -245,27 +215,54 @@
 
                 if (!valid) return;
 
+                // Enviar al endpoint de FormularioMarzo API
+                var btnEnviar = form.querySelector('.btn-enviar');
+                var msgDiv = document.getElementById('formMessage');
                 btnEnviar.disabled = true;
                 btnEnviar.textContent = 'Enviando...';
+                msgDiv.style.display = 'none';
 
-                fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nombre: nombre, correo: correo })
-                })
-                .then(function (res) {
-                    if (!res.ok) throw new Error('Error en el registro');
-                    return res.json();
-                })
-                .then(function () {
-                    showSuccessMessage();
-                    setTimeout(showConfirmation, 1000);
-                })
-                .catch(function () {
-                    showError(correoInput, correoError, 'Hubo un error, intenta de nuevo.');
+                try {
+                    var response = await fetch('http://localhost:5068/api/Formularios', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            createFormularioDto: {
+                                nombre: nombre,
+                                email: correo
+                            }
+                        })
+                    });
+
+                    var data = await response.json();
+
+                    if (response.ok && data.isSuccess) {
+                        form.reset();
+                        var successMsg = (data.value && data.value.mensaje) || '¡Registro exitoso!';
+                        msgDiv.textContent = successMsg;
+                        msgDiv.style.display = 'block';
+                        msgDiv.style.backgroundColor = '#d4edda';
+                        msgDiv.style.color = '#155724';
+                        msgDiv.style.border = '1px solid #c3e6cb';
+                    } else {
+                        var errorMsg = (data.value && data.value.mensaje) || data.error || 'Error al registrar. Intenta de nuevo.';
+                        msgDiv.textContent = errorMsg;
+                        msgDiv.style.display = 'block';
+                        msgDiv.style.backgroundColor = '#f8d7da';
+                        msgDiv.style.color = '#721c24';
+                        msgDiv.style.border = '1px solid #f5c6cb';
+                    }
+                } catch (err) {
+                    msgDiv.textContent = 'No se pudo conectar con el servidor. Intenta más tarde.';
+                    msgDiv.style.display = 'block';
+                    msgDiv.style.backgroundColor = '#f8d7da';
+                    msgDiv.style.color = '#721c24';
+                    msgDiv.style.border = '1px solid #f5c6cb';
+                    console.error('Error:', err);
+                } finally {
                     btnEnviar.disabled = false;
                     btnEnviar.textContent = 'Enviar';
-                });
+                }
             });
         })();
     </script>
