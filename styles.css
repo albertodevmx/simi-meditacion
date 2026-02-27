@@ -63,6 +63,14 @@ h1.texth1{
      padding-top: 1em;
 }
 
+h3.subtitulo{
+     font-family: "Playfair Display", serif;
+     color: #e1ccad;
+     font-size: 1.6em;
+     font-weight: 400;
+     margin-top: 0.2em;
+}
+
 .caj-icons {display: flex; text-align: center;   flex-wrap: wrap;}
 .text-icons{padding: 2em 2em 0em 0em ;}
 .text-icons p {font-family: "Karla", sans-serif; font-size: 1em; color: white; 
@@ -140,6 +148,43 @@ img.simi{width: 80%; padding-top: 1em;}
   background-color: #e1ccad !important;
   border-radius:  10px;
 }
+
+.modal-title{
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  color: #413625;
+}
+
+.modal-body .form-label{
+  font-family: "Karla", sans-serif;
+  font-weight: 600;
+  color: #413625;
+}
+
+.modal-body .form-check-label{
+  font-family: "Karla", sans-serif;
+  color: #413625;
+}
+
+.modal-body .form-check-label a{
+  color: #552f6f;
+  font-weight: 600;
+}
+
+.btn-registro{
+  background-color: #413625;
+  color: white;
+  font-family: "Karla", sans-serif;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 35px 0 35px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-registro:hover{
+  background-color: #552f6f;
+  color: white;
+}
 @keyframes float {
 	0% {transform: translatex(0px);}
 	50% {transform: translatex(-20px);}
@@ -151,6 +196,7 @@ img.simi{width: 80%; padding-top: 1em;}
      font-size: 3em;
      text-align: center;
     }
+    h3.subtitulo{text-align: center;}
     .caj-icons{justify-content: center;}
     .text-icons{padding: 2em 1em 0em 1em ;}
     .caj-tapete{text-align: center; justify-content: center;}
