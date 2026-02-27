@@ -1,212 +1,817 @@
-
-*{
+/* ===========================
+   Reset & Base
+   =========================== */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
-  background: url('assets/images/fondo-nubes.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
+    background: url('assets/images/fondo-nubes.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 }
 
-/* Capa de nubes animadas */
+/* ===========================
+   Preloader
+   =========================== */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('assets/images/fondo-nubes.png') center / cover no-repeat;
+    z-index: 9999;
+    transition: opacity 0.35s ease-out,
+                visibility 0.35s ease-out;
+}
+
+#preloader.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ===========================
+   Custom entry animations (subtle)
+   =========================== */
+@keyframes fadeInSoft {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInOnly {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.main-content .container {
+    animation: fadeInSoft 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.simi-fixed {
+    animation: fadeInOnly 0.4s ease 0.1s forwards;
+    opacity: 0;
+}
+
+/* ===========================
+   Petals Canvas
+   =========================== */
+#petalsCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ===========================
+   Animated Clouds Overlay
+   =========================== */
 .nubes-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
 }
 
 .nubes-overlay::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 100%;
-  background-image: url('assets/images/nubes-blancas.png');
-  background-repeat: repeat-x;
-  background-size: 50% 100%;
-  background-position: 0 0;
-  animation: moverNubes 120s linear infinite;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url('assets/images/nubes-blancas.png');
+    background-repeat: repeat-x;
+    background-size: 50% 100%;
+    background-position: 0 0;
+    animation: moverNubes 108s linear infinite;
 }
 
 @keyframes moverNubes {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
-.info {
-  position: relative;
-  z-index: 1;
-}
-
-h1.texth1{
-     font-family: "Playfair Display", serif;
-     color: white;
-     font-size: 3em;
-     font-weight: 700;
-     padding-top: 1em;
-}
-
-h3.subtitulo{
-     font-family: "Playfair Display", serif;
-     color: #e1ccad;
-     font-size: 1.6em;
-     font-weight: 400;
-     margin-top: 0.2em;
-}
-
-.caj-icons {display: flex; text-align: center;   flex-wrap: wrap;}
-.text-icons{padding: 2em 2em 0em 0em ;}
-.text-icons p {font-family: "Karla", sans-serif; font-size: 1em; color: white; 
-text-decoration: none;}
-.text-icons p a {font-family: "Karla"; color: white; text-decoration: none;}
-.text-icons p a.monumento:hover{font-weight: 700;}
-.text-icons p a.hazclic {background-color: #e1ccad; padding: 3px 10px 3px 10px; border-radius: 50px;
-color: #413625; text-decoration: none; text-decoration: none;font-size: 1.2em; font-weight: 700;}
-.text-icons p a.hazclic:hover{background-color: #413625;color: #e1ccad;}
-
-.caj-tapete{display:flex; align-items: center; padding: 1em 0em 1em 0em; }
-.tapeteyoga img{width: 5em;}
-.textoyoga p{font-family: "Karla", sans-serif; font-size: 1.2em; color: white; font-weight: 600;}
-
-img.simi{width: 80%; padding-top: 1em;}
-
-.foot {
+/* ===========================
+   Fondo Flores – Bottom decorative layer
+   =========================== */
+.fondo-flores {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
-  justify-content: center;
-  text-align: center;
-  font-family: "Karla";
-  position: relative;
-  z-index: 1;
+    z-index: 0;
+    pointer-events: none;
+    line-height: 0;
 }
 
-.logo-foot img{
-    width: 14em;
-}
-.copy p{color: white; font-family: "Karla";}
-.copy a{color: #f89b59;}
-
-/*boton*/
-
-.getstarted_btn {
-  position: relative;
-  z-index: 1;
-  font-size: 22px;
-  font-weight: 500;
-  padding: 24px 50px;
-  color: #413625;
-  display: inline-block;
-  background-color: #e1ccad;
-  border-radius: 35px 0 35px 0;
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-  text-decoration: none;
+.fondo-flores img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-.getstarted_btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 100%;
-  background: #ffffff;
-  transition: all 0.4s cubic-bezier(0.12, 0, 0.38, 1);
-  z-index: -1;
+/* ===========================
+   Main Content Layout
+   =========================== */
+.main-content {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 0 2rem;
+    min-height: 100vh;
 }
 
-.getstarted_btn:hover {
-  color: #552f6f;
-  transform: translateY(-10px);
+/* Container 15% más angosto que el default de Bootstrap */
+@media (min-width: 576px) {
+    .main-content .container { max-width: 459px; }
+}
+@media (min-width: 768px) {
+    .main-content .container { max-width: 612px; }
+}
+@media (min-width: 992px) {
+    .main-content .container { max-width: 816px; }
+}
+@media (min-width: 1200px) {
+    .main-content .container { max-width: 969px; }
+}
+@media (min-width: 1400px) {
+    .main-content .container { max-width: 1122px; }
 }
 
-.getstarted_btn:hover::before {
-  left: 0;
-  right: auto;
-  width: 100%;
-}
-
-.meditarsimi{ animation: float 6s ease-in-out infinite;}
-
-.modal-content{
-  background-color: #e1ccad !important;
-  border-radius:  10px;
-}
-
-.modal-title{
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
-  color: #413625;
-}
-
-.modal-body .form-label{
-  font-family: "Karla", sans-serif;
-  font-weight: 600;
-  color: #413625;
-}
-
-.modal-body .form-check-label{
-  font-family: "Karla", sans-serif;
-  color: #413625;
-}
-
-.modal-body .form-check-label a{
-  color: #552f6f;
-  font-weight: 600;
-}
-
-.btn-registro{
-  background-color: #413625;
-  color: white;
-  font-family: "Karla", sans-serif;
-  font-weight: 600;
-  padding: 10px;
-  border-radius: 35px 0 35px 0;
-  transition: all 0.3s ease-in-out;
-}
-
-.btn-registro:hover{
-  background-color: #552f6f;
-  color: white;
-}
-@keyframes float {
-	0% {transform: translatex(0px);}
-	50% {transform: translatex(-20px);}
-	100% {transform: translatex(0px);}
-}
-
-@media (max-width: 768px) {
-    h1.texth1{
-     font-size: 3em;
-     text-align: center;
+/* Desktop-only overrides */
+@media (min-width: 992px) {
+    .titulo {
+        text-align: left;
+        padding-top: 100px;
     }
-    h3.subtitulo{text-align: center;}
-    .caj-icons{justify-content: center;}
-    .text-icons{padding: 2em 1em 0em 1em ;}
-    .caj-tapete{text-align: center; justify-content: center;}
-    .btn_wrapper{text-align: center;}
-    img.simi{width: 85%; padding-top: 0em;}
 
-
+    .simi-fixed {
+        left: 210px;
+    }
 }
-@media (max-width: 390px){
-    .caj-icons{justify-content: center;}
-    .text-icons{padding: 2em 0em 0em 0em; text-align: center;}
 
+.title-col {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+}
+
+.content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* ===========================
+   Title
+   =========================== */
+.titulo {
+    font-family: "Young Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 3.2rem;
+    line-height: 1.15;
+}
+
+.subtitulo {
+    font-family: "Young Serif", serif;
+    font-weight: 400;
+    color: #e1ccad;
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+}
+
+/* ===========================
+   Info Icons Row
+   =========================== */
+.info-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.info-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.info-item img {
+    width: 2.5rem;
+    height: auto;
+}
+
+.info-item p {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.info-item a.lugar-link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.info-item a.lugar-link:hover {
+    transform: scale(1.08);
+}
+
+.btn-hazclic {
+    display: inline-block;
+    background-color: #e1ccad;
+    color: #413625;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.9rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-hazclic:hover {
+    background-color: #413625;
+    color: #e1ccad;
+    transform: scale(1.1);
+}
+
+/* ===========================
+   Yoga Mat Section
+   =========================== */
+.tapete-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.tapete-section img {
+    width: 4rem;
+    height: auto;
+}
+
+.tapete-section p {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* ===========================
+   Form Card
+   =========================== */
+.form-card {
+    background: rgba(225, 204, 173, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 1.6rem 1.8rem;
+    max-width: 420px;
+}
+
+.form-title {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #ffffff;
+    margin: 0 0 0.6rem;
+}
+
+/* ===========================
+   Signup Form
+   =========================== */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    width: 100%;
+}
+
+.signup-form .form-group {
+    width: 100%;
+}
+
+.signup-form input {
+    width: 100%;
+    padding: 0.85rem 1.4rem;
+    border: none;
+    border-radius: 50px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #413625;
+    background-color: rgba(255, 255, 255, 0.92);
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.signup-form input::placeholder {
+    color: #9a8e80;
+    font-weight: 400;
+}
+
+.signup-form input:focus {
+    box-shadow: 0 0 0 3px rgba(225, 204, 173, 0.6);
+}
+
+.btn-enviar {
+    align-self: flex-start;
+    padding: 0.75rem 3rem;
+    border: none;
+    border-radius: 50px;
+    background-color: #e1ccad;
+    color: #413625;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background-color: #413625;
+    color: #e1ccad;
+    transform: scale(1.08);
+}
+
+/* Validation errors */
+.error-msg {
+    display: block;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: #ffcccb;
+    margin-top: 0.25rem;
+    padding-left: 1rem;
+    min-height: 0;
+}
+
+.signup-form input.input-error {
+    box-shadow: 0 0 0 3px rgba(255, 100, 100, 0.5);
+}
+
+/* ===========================
+   Privacy Checkbox
+   =========================== */
+.form-check-group {
+    width: 100%;
+}
+
+.check-privacidad {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.check-privacidad input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.2rem;
+    accent-color: #413625;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.check-privacidad span {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.check-privacidad a {
+    color: #f89b59;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.check-privacidad a:hover {
+    color: #e1ccad;
+}
+
+/* ===========================
+   Button loading state
+   =========================== */
+.btn-enviar.is-loading {
+    pointer-events: none;
+    position: relative;
+    color: transparent;
+}
+
+.btn-enviar.is-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: -0.6rem 0 0 -0.6rem;
+    border: 2.5px solid rgba(65, 54, 37, 0.25);
+    border-top-color: #413625;
+    border-radius: 50%;
+    animation: btnSpin 0.65s linear infinite;
+}
+
+@keyframes btnSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Button success state */
+.btn-enviar.is-success {
+    pointer-events: none;
+    background-color: #8bc78b;
+    color: #fff;
+    transform: scale(1.04);
+}
+
+/* ===========================
+   Success message (appears inside form card)
+   =========================== */
+.success-msg {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #c8f7c5;
+    text-align: center;
+    margin-top: 0.6rem;
+    opacity: 0;
+    animation: successSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes successSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===========================
+   Form card fade-out
+   =========================== */
+.form-card.fade-out {
+    animation: formFadeOut 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes formFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.96) translateY(-14px);
+    }
+}
+
+/* ===========================
+   Confirmation card
+   =========================== */
+.confirmation-card {
+    background: rgba(225, 204, 173, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 2.2rem 2rem;
+    max-width: 420px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    animation: confirmFadeIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes confirmFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Sparkle icon: pop in + gentle float */
+.confirmation-card .confirm-icon {
+    font-size: 2.8rem;
+    margin-bottom: 0.6rem;
+    display: block;
+    opacity: 0;
+    animation: iconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards,
+               iconFloat 3s ease-in-out 0.75s infinite;
+}
+
+@keyframes iconPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Staggered entrance for title and body */
+.confirmation-card .confirm-title {
+    font-family: "Young Serif", serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: #ffffff;
+    margin: 0 0 1rem;
+    line-height: 1.3;
+    opacity: 0;
+    animation: confirmItemIn 0.55s ease 0.35s forwards;
+}
+
+.confirmation-card .confirm-body {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #ffffff;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0;
+    animation: confirmItemIn 0.55s ease 0.55s forwards;
+}
+
+@keyframes confirmItemIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.confirmation-card .confirm-body .confirm-highlight {
+    font-weight: 700;
+    color: #e1ccad;
+}
+
+/* ===========================
+   Simi – Fixed to viewport bottom
+   =========================== */
+.simi-fixed {
+    position: fixed;
+    bottom: 50px;
+    left: 210px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.simi-img {
+    width: 27.5vw;
+    max-width: 475px;
+    min-width: 250px;
+    height: auto;
+    pointer-events: auto;
+}
+
+/* Desktop: fixed size, not responsive */
+@media (min-width: 992px) {
+    .simi-img {
+        height: 350px;
+        width: auto;
+        min-width: 0;
+        max-width: none;
+    }
+}
+
+/* ===========================
+   Footer Block (inside content-col)
+   =========================== */
+.footer-block {
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+.footer-logo {
+    width: 12rem;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.footer-block a:hover .footer-logo {
+    transform: scale(1.06);
+}
+
+.footer-copy-wrap {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 0.5rem 1rem 30px;
+}
+
+.footer-copy {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.footer-copy a {
+    color: #f89b59;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.footer-copy a:hover {
+    transform: scale(1.08);
+}
+
+/* ===========================
+   Hover Zoom: All links
+   =========================== */
+a {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+a:hover {
+    transform: scale(1.06);
+}
+
+/* ===========================
+   Responsive: Tablets
+   =========================== */
+@media (max-width: 991px) {
+    .main-content {
+        padding: 2rem 0 2rem;
+    }
+
+    .content-col {
+        align-items: center;
+        text-align: center;
+    }
+
+    .titulo {
+        text-align: center;
+        font-size: 2.6rem;
+    }
+
+    .subtitulo {
+        text-align: center;
+    }
+
+    /* Prevent cloud animation from stretching vertically on portrait screens */
+    .nubes-overlay::before {
+        background-size: 50% auto;
+    }
+
+    .simi-fixed {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        text-align: center;
+        pointer-events: auto;
+    }
+
+    .simi-img {
+        width: 52vw;
+        min-width: 184px;
+        max-width: 253px;
+    }
+}
+
+/* ===========================
+   Responsive: Mobile
+   =========================== */
+@media (max-width: 767px) {
+    .main-content {
+        padding: 2rem 0 1rem;
+        min-height: auto;
+    }
+
+    .content-col {
+        gap: 1.2rem;
+        padding-bottom: 0.8rem;
+    }
+
+    .titulo {
+        font-size: 3.15rem;
+    }
+
+    .info-icons {
+        gap: 1.5rem;
+    }
+
+    .form-card,
+    .confirmation-card {
+        max-width: 340px;
+        align-self: center;
+    }
+
+    .btn-enviar {
+        align-self: center;
+    }
+
+    .fondo-flores {
+        height: 35vh;
+        overflow: hidden;
+    }
+
+    .fondo-flores img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+    }
+
+    .footer-logo {
+        width: 10rem;
+    }
+}
+
+/* ===========================
+   Responsive: Small phones
+   =========================== */
+@media (max-width: 400px) {
+    .titulo {
+        font-size: 2.7rem;
+    }
+
+    .info-icons {
+        gap: 1rem;
+    }
+
+    .info-item img {
+        width: 2rem;
+    }
+
+    .form-card,
+    .confirmation-card {
+        padding: 1.2rem 1.3rem;
+    }
+
+    .signup-form input {
+        padding: 0.75rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .btn-enviar {
+        padding: 0.65rem 2.5rem;
+        font-size: 1rem;
+    }
+
+    .simi-img {
+        width: 46vw;
+        min-width: 161px;
+        max-width: 207px;
+    }
 }
